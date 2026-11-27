@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's your team's personality? | Women's college basketball</title>
+<meta name="description" content="Every Division I women's basketball team from 2016–17 to 2025–26, placed on a court by how fast it plays and how often it shoots threes.">
+<style>
+:root {
+  color-scheme: light;
+  --umd-red: #e21833; --umd-gold: #ffd200; --umd-black: #111111;
+  --page: #ffffff; --court: #ffffff; --card: #ffffff; --lane: #fff3c4; --court-edge: #111111;
+  --ink: #111111; --ink-2: #474747; --muted: #6e6e6e;
+  --line: #e4e4e4; --court-line: #d9d9d9; --court-line-strong: #111111;
+  --ring: rgba(0,0,0,0.10); --dot: #a6a39e; --dot-on: #3d3d3d;
+  --champ: #ffd200; --champ-stroke: #111111; --ff: #e21833; --sel: #111111;
+  --bar-all: #cdcac4; --bar-ff: #e21833; --focus: #e21833;
+  --accent-wash: rgba(255,210,0,0.18);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0e0e0e; --court: #1c1b19; --card: #171717; --lane: rgba(255,210,0,0.10); --court-edge: #d6d6d6;
+  --ink: #f3f3f3; --ink-2: #c8c8c8; --muted: #9a9a9a;
+  --line: #2f2f2f; --court-line: #3a3834; --court-line-strong: #57524a;
+  --ring: rgba(255,255,255,0.10); --dot: #5c5a57; --dot-on: #d6d6d6;
+  --champ: #ffd200; --champ-stroke: #000000; --ff: #ec3048; --sel: #ffffff;
+  --bar-all: #474540; --bar-ff: #ec3048; --focus: #ffd200;
+  --accent-wash: rgba(255,210,0,0.10);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 1.25rem; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--card); padding: .5rem 1rem; z-index: 50; }
+.skip:focus { left: 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* top bar: section links (the scoreboard) */
+.ldw { background: var(--umd-red); color: #fff; font-size: 1rem; }
+.ldw .wrap { display: flex; flex-wrap: wrap; gap: .25rem 1rem; align-items: center; min-height: 2.5rem; }
+.ldw strong { font-weight: 700; }
+.ldw span { opacity: .92; }
+.topbar {
+  position: sticky; top: 0; z-index: 20; background: var(--umd-black); color: #fff;
+  border-bottom: 4px solid var(--umd-gold);
+}
+.topbar .wrap { display: flex; align-items: center; gap: 1rem; min-height: 3.5rem; }
+.brand { font-weight: 800; letter-spacing: -.01em; white-space: nowrap; display: flex; align-items: center; gap: .5rem; text-decoration: none; }
+.brand svg { flex: none; }
+.toplinks { display: flex; gap: .25rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.toplinks a {
+  text-decoration: none; font-size: .875rem; color: #d9d9d9;
+  padding: .35rem .65rem; border-radius: 999px; white-space: nowrap;
+}
+.toplinks a:hover { background: rgba(255,210,0,.16); color: #fff; }
+.theme-btn {
+  border: 1px solid #444; background: #222; color: #fff;
+  border-radius: 999px; width: 2.25rem; height: 2.25rem; cursor: pointer; flex: none;
+  display: grid; place-items: center;
+}
+
+/* hero */
+.hero { padding: 3rem 0 1.5rem; }
+.kicker { font-size: .8125rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 .75rem; }
+h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.05; letter-spacing: -.025em; margin: 0 0 1rem; font-weight: 800; max-width: 16ch; }
+.dek { font-size: 1.15rem; color: var(--ink-2); max-width: 62ch; margin: 0 0 1.25rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 2rem; padding: 0; list-style: none; }
+.tags li { font-size: .8125rem; font-weight: 600; border: 1px solid var(--line); border-left: 3px solid var(--umd-gold); background: var(--card); padding: .3rem .75rem; border-radius: 999px; color: var(--ink-2); }
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+.tile { background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--umd-red); border-radius: 14px; padding: 1rem 1.1rem; }
+.tile:nth-child(even) { border-top-color: var(--umd-gold); }
+.tile .v { font-size: 2rem; font-weight: 750; letter-spacing: -.02em; line-height: 1.1; }
+.tile .l { font-size: .875rem; color: var(--ink-2); }
+
+section { padding: 2.25rem 0; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.02em; line-height: 1.15; margin: 0 0 .5rem; }
+h2::before { content: ""; display: inline-block; width: .45rem; height: 1em; background: var(--umd-red); border-radius: 2px; margin-right: .6rem; vertical-align: -.1em; box-shadow: .55rem 0 0 var(--umd-gold); margin-right: 1.15rem; }
+.map-card, .standings-card { border-top: 4px solid var(--umd-black); }
+.fact { border-top: 4px solid var(--umd-gold); }
+.fact:nth-child(2) { border-top-color: var(--umd-red); }
+.fact .big { color: var(--umd-red); }
+.persona .stats b { color: var(--umd-red); }
+.panel { border-top: 4px solid var(--umd-red); }
+.conf-more { display: none; flex-wrap: wrap; gap: .3rem; margin-top: .3rem; }
+.conf-more.open { display: flex; }
+h3 { font-size: 1.05rem; margin: 0 0 .35rem; }
+.lede { color: var(--ink-2); max-width: 68ch; margin: 0 0 1.25rem; }
+
+.question {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 1.5rem; align-items: start;
+}
+.callout {
+  border-left: 5px solid var(--umd-red); background: var(--card); border-radius: 0 14px 14px 0;
+  padding: 1.1rem 1.25rem; font-size: 1.15rem; font-weight: 600; line-height: 1.4;
+}
+.callout small { display: block; font-weight: 400; font-size: .95rem; color: var(--ink-2); margin-top: .5rem; }
+.axes-explain { display: grid; gap: .75rem; }
+.axis-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: .9rem 1.1rem; }
+.axis-card p { margin: 0; color: var(--ink-2); font-size: .95rem; }
+
+/* controls */
+.controls { display: flex; flex-direction: column; gap: .75rem; margin: 0 0 1rem; }
+.control-group { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.control-group > span, .control-group > label { font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.season-strip { display: flex; flex-wrap: wrap; gap: .3rem; }
+.chip {
+  font: inherit; font-size: .8125rem; border: 1px solid var(--line); background: var(--card); color: var(--ink-2);
+  border-radius: 999px; padding: .3rem .7rem; cursor: pointer; min-height: 2rem;
+}
+.chip:hover { border-color: var(--court-line-strong); color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--umd-red); color: #fff; border-color: var(--umd-red); }
+.chip:hover { border-color: var(--umd-gold); }
+select, input[type="search"] {
+  font: inherit; font-size: .9rem; color: var(--ink); background: var(--card);
+  border: 1px solid var(--line); border-radius: 10px; padding: .45rem .7rem; min-height: 2.4rem; min-width: 0;
+}
+input[type="search"] { width: 15rem; max-width: 100%; }
+
+/* map + scouting panel */
+.board { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 1rem; align-items: start; }
+.map-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: .75rem; position: relative; }
+.map-legend { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; font-size: .8125rem; color: var(--ink-2); padding: .25rem .5rem .5rem; }
+.map-legend span { display: inline-flex; align-items: center; gap: .4rem; }
+#map { width: 100%; height: auto; display: block; touch-action: manipulation; }
+#map .court-bg { fill: var(--court); }
+#map .court-line { stroke: var(--court-line); fill: none; stroke-width: 1.5; }
+#map .court-mid { stroke: var(--court-line-strong); fill: none; stroke-width: 1.5; }
+#map .court-edge { stroke: var(--court-edge); fill: none; stroke-width: 2.5; }
+#map .lane { fill: var(--lane); stroke: var(--umd-gold); stroke-width: 1.5; }
+#map .center-circle { stroke: var(--umd-red); fill: none; stroke-width: 2.5; }
+#map .arc { stroke: var(--umd-red); fill: none; stroke-width: 1.5; opacity: .55; }
+#map .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+#map .axis-title { fill: var(--ink-2); font-size: 12px; font-weight: 600; }
+#map .zone-name { fill: var(--ink); font-size: 15px; font-weight: 800; letter-spacing: .01em; }
+#map .zone-sub { fill: var(--ink-2); font-size: 11px; }
+#map .zone-dim { opacity: .3; }
+#map .dot { fill: var(--dot); }
+#map .dot.on { fill: var(--dot-on); }
+#map .mark-ff { fill: var(--ff); stroke: var(--court); stroke-width: 2; }
+#map .mark-champ { fill: var(--champ); stroke: var(--champ-stroke); stroke-width: 1.5; stroke-linejoin: round; }
+#map .mark-sel { fill: var(--sel); stroke: var(--court); stroke-width: 2; }
+#map .path-sel { stroke: var(--sel); stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+#map .sel-label { fill: var(--ink); font-size: 11px; font-weight: 700; paint-order: stroke; stroke: var(--court); stroke-width: 3px; }
+#map .focusable { cursor: pointer; }
+#map .focusable:focus { outline: none; }
+#map .focusable:focus-visible { stroke: var(--focus); stroke-width: 3; }
+#map .hover-ring { fill: none; stroke: var(--ink); stroke-width: 1.5; pointer-events: none; }
+.tooltip {
+  position: absolute; pointer-events: none; z-index: 5; background: var(--card); color: var(--ink);
+  border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); border-radius: 10px;
+  padding: .55rem .7rem; font-size: .8125rem; line-height: 1.4; min-width: 12rem; max-width: 16rem; display: none;
+}
+.tooltip b { font-size: .9rem; }
+.tooltip .tt-row { display: flex; justify-content: space-between; gap: 1rem; color: var(--ink-2); }
+.tooltip .tt-row span:last-child { color: var(--ink); font-variant-numeric: tabular-nums; }
+.map-note { font-size: .8125rem; color: var(--muted); margin: .5rem .5rem .25rem; }
+
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 1.1rem; position: sticky; top: 4.5rem; }
+.panel h3 { font-size: 1.25rem; letter-spacing: -.01em; }
+.panel .eyebrow { font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 .35rem; }
+.panel p { margin: 0 0 .75rem; color: var(--ink-2); font-size: .925rem; }
+.quick { display: flex; flex-wrap: wrap; gap: .35rem; }
+.season-list { list-style: none; padding: 0; margin: .5rem 0 0; display: grid; gap: .1rem; max-height: 22rem; overflow: auto; }
+.season-list li { display: grid; grid-template-columns: 4.2rem 1.1rem 1fr auto; gap: .5rem; align-items: center; font-size: .85rem; padding: .3rem .25rem; border-radius: 8px; }
+.season-list li.current { background: var(--accent-wash); }
+.season-list .s { color: var(--muted); font-variant-numeric: tabular-nums; }
+.season-list .fin { color: var(--ink-2); font-size: .8rem; text-align: right; }
+.panel .close { float: right; font: inherit; font-size: .8rem; background: none; border: 1px solid var(--line); color: var(--ink-2); border-radius: 999px; padding: .2rem .6rem; cursor: pointer; }
+.identity { display: flex; align-items: center; gap: .6rem; background: var(--page); border-radius: 12px; padding: .6rem .7rem; margin: 0 0 .75rem; }
+.identity strong { display: block; }
+.identity span { font-size: .85rem; color: var(--ink-2); }
+
+.glyph { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 2px; flex: none; }
+.glyph i { display: block; border-radius: 2px; background: var(--line); }
+.glyph i.on { background: var(--umd-red); }
+
+/* how to read */
+.read { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-top: 1rem; }
+.read div { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: .9rem 1rem; }
+.read b { display: block; margin-bottom: .2rem; }
+.read p { margin: 0; color: var(--ink-2); font-size: .9rem; }
+
+/* personality cards */
+.persona-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+.persona {
+  text-align: left; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 1rem; cursor: pointer; display: flex; flex-direction: column; gap: .5rem;
+}
+.persona:hover { border-color: var(--court-line-strong); }
+.persona[aria-pressed="true"] { border-color: var(--umd-red); box-shadow: inset 0 0 0 1px var(--umd-red); }
+.persona .top { display: flex; align-items: center; gap: .6rem; }
+.persona .name { font-weight: 800; font-size: 1.05rem; }
+.persona .where { font-size: .8rem; color: var(--muted); }
+.persona p { margin: 0; color: var(--ink-2); font-size: .9rem; }
+.persona .stats { display: flex; flex-wrap: wrap; gap: .25rem .75rem; font-size: .8125rem; color: var(--ink-2); margin-top: auto; padding-top: .5rem; border-top: 1px solid var(--line); }
+.persona .stats b { color: var(--ink); }
+.tip { font-size: .9rem; color: var(--ink-2); margin: .9rem 0 0; }
+
+/* standings */
+.standings-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 1.1rem 1.1rem .75rem; }
+.legend { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; font-size: .85rem; color: var(--ink-2); margin: 0 0 .75rem; }
+.legend span { display: inline-flex; align-items: center; gap: .45rem; }
+.swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+#standings { width: 100%; height: auto; display: block; }
+#standings .row-name { fill: var(--ink); font-size: 14px; font-weight: 700; }
+#standings .row-sub { fill: var(--ink-2); font-size: 12px; }
+#standings .val { fill: var(--ink); font-size: 12px; font-variant-numeric: tabular-nums; }
+#standings .grid { stroke: var(--line); stroke-width: 1; }
+#standings .base { stroke: var(--court-line-strong); stroke-width: 1; }
+#standings .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+
+/* facts */
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+.fact { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem; }
+.fact .big { font-size: 2.2rem; font-weight: 800; letter-spacing: -.02em; line-height: 1; margin-bottom: .5rem; }
+.fact h3 { font-size: 1.05rem; }
+.fact p { margin: 0; color: var(--ink-2); font-size: .925rem; }
+.fact button { margin-top: .75rem; }
+
+/* about */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.about-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem 1.2rem; }
+.about-card p, .about-card li { color: var(--ink-2); font-size: .925rem; }
+.about-card ul { padding-left: 1.1rem; margin: .25rem 0 0; }
+details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: .8rem 1rem; margin-top: .75rem; }
+summary { cursor: pointer; font-weight: 600; }
+.table-wrap { overflow-x: auto; margin-top: .75rem; max-height: 28rem; overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+th, td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { position: sticky; top: 0; background: var(--card); font-weight: 600; color: var(--ink-2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+footer { padding: 2rem 0 3rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 1rem; }
+
+@media (max-width: 960px) {
+  .board { grid-template-columns: 1fr; }
+  .panel { position: static; }
+  .persona-grid { grid-template-columns: repeat(2, 1fr); }
+  .question { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .tiles { grid-template-columns: repeat(2, 1fr); }
+  .read, .facts, .about-grid { grid-template-columns: 1fr; }
+  .toplinks { display: none; }
+  .hero { padding-top: 2rem; }
+}
+@media (max-width: 480px) {
+  .wrap { padding: 0 .85rem; }
+  .persona-grid { grid-template-columns: 1fr; }
+  .map-card { padding: .35rem; }
+  input[type="search"] { width: 100%; }
+  .control-group { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (forced-colors: active) {
+  #map .mark-champ, #map .mark-ff, #map .mark-sel { forced-color-adjust: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#map-section">Skip to the map</a>
+<div class="ldw"><div class="wrap"><strong>Love Data Week 2027</strong><span>Big Ten Data Viz Student Championship · University of Maryland</span></div></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2v20M5 5c3 3 3 11 0 14M19 5c-3 3-3 11 0 14" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      Court Personalities
+    </a>
+    <nav class="toplinks" aria-label="Sections">
+      <a href="#map-section">The map</a>
+      <a href="#personalities">Personalities</a>
+      <a href="#standings-section">Standings</a>
+      <a href="#facts">Hot takes</a>
+      <a href="#about">How it was made</a>
+    </nav>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch to dark theme">
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <p class="kicker">Women's college basketball · 2016–17 to 2025–26</p>
+      <h1 id="title">What's your team's personality?</h1>
+      <p class="dek" id="dek"></p>
+      <ul class="tags" aria-label="Topics">
+        <li>Pace</li><li>Shot selection</li><li>March Madness</li>
+      </ul>
+      <div class="tiles" id="tiles"></div>
+    </section>
+
+    <section aria-labelledby="q-title">
+      <h2 id="q-title" class="sr-only">The question</h2>
+      <div class="question">
+        <div class="callout">
+          Does one style of play win more titles?
+          <small>Every team picks a pace and a shot diet. Those two habits sort teams into four personalities.</small>
+        </div>
+        <div class="axes-explain">
+          <div class="axis-card"><h3>Pace</h3><p>Possessions per game. Fast or slow?</p></div>
+          <div class="axis-card"><h3>Shot selection</h3><p>Share of shots that are threes. Shooters take more, attackers take fewer and score mostly on twos.</p></div>
+        </div>
+      </div>
+      <p class="map-note">Both are measured against that season's average team.</p>
+    </section>
+
+    <section id="map-section" aria-labelledby="map-title">
+      <h2 id="map-title">The personality map</h2>
+      <p class="lede">Each dot is one team-season. Center court is the average team. Click a dot or search to follow a team.</p>
+
+      <div class="controls">
+        <div class="control-group" role="group" aria-labelledby="season-label">
+          <span id="season-label">Season</span>
+          <div class="season-strip" id="season-strip"></div>
+        </div>
+        <div class="control-group" role="group" aria-labelledby="conf-label">
+          <span id="conf-label">Conference</span>
+          <div class="season-strip" id="conf-strip"></div>
+          <div class="conf-more" id="conf-more"></div>
+        </div>
+        <div class="control-group">
+          <label for="team-search">Find a team</label>
+          <input type="search" id="team-search" list="team-list" placeholder="Try Maryland" autocomplete="off">
+          <datalist id="team-list"></datalist>
+        </div>
+      </div>
+
+      <div class="board">
+        <div class="map-card">
+          <div class="map-legend" aria-label="Legend">
+            <span><svg width="14" height="14" aria-hidden="true"><path id="legend-star" fill="var(--champ)" stroke="var(--champ-stroke)" stroke-width="1.2" stroke-linejoin="round"/></svg>National champion</span>
+            <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="var(--ff)"/></svg>Final Four</span>
+            <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4" fill="var(--dot)"/></svg>Every other team</span>
+            <span><svg width="22" height="14" aria-hidden="true"><path d="M1 10 L11 4 L21 8" stroke="var(--sel)" stroke-width="2" fill="none"/><circle cx="11" cy="4" r="3.5" fill="var(--sel)"/></svg>Selected team's path</span>
+          </div>
+          <svg id="map" role="img" aria-labelledby="map-desc" viewBox="0 0 760 600"></svg>
+          <p class="sr-only" id="map-desc"></p>
+          <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+          <p class="map-note" id="map-note"></p>
+        </div>
+
+        <aside class="panel" id="panel" aria-live="polite" aria-label="Scouting report"></aside>
+      </div>
+
+      <div class="read" aria-label="How to read this chart">
+        <div><b>→ Faster</b><p>Extra possessions per game vs. average.</p></div>
+        <div><b>↑ More threes</b><p>Points of three-point share vs. average.</p></div>
+        <div><b>Far from center</b><p>A stronger personality.</p></div>
+      </div>
+    </section>
+
+    <section id="personalities" aria-labelledby="p-title">
+      <h2 id="p-title">Meet the four personalities</h2>
+      <p class="lede">Click a card to light up its corner of the court.</p>
+      <div class="persona-grid" id="persona-grid"></div>
+      <p class="tip">Tip: personalities change with coaches and rosters. Click a team to see how it moved.</p>
+    </section>
+
+    <section id="standings-section" aria-labelledby="s-title">
+      <h2 id="s-title" data-fill="standings-title"></h2>
+      <p class="lede" id="standings-lede"></p>
+      <div class="standings-card">
+        <div class="legend" aria-hidden="true">
+          <span><i class="swatch" style="background:var(--bar-all)"></i>Share of all team-seasons</span>
+          <span><i class="swatch" style="background:var(--bar-ff)"></i>Share of Final Four spots</span>
+        </div>
+        <svg id="standings" role="img" aria-labelledby="standings-desc" viewBox="0 0 760 320"></svg>
+        <p class="sr-only" id="standings-desc"></p>
+      </div>
+    </section>
+
+    <section id="facts" aria-labelledby="f-title">
+      <h2 id="f-title">Hot takes from the data</h2>
+      <div class="facts" id="fact-grid"></div>
+    </section>
+
+    <section id="about" aria-labelledby="a-title">
+      <h2 id="a-title">How it was made</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>The process</h3>
+          <p>I wanted habits that show how a team plays, not how good it is. Pace and three-point share barely track scoring margin (correlations <span data-fill="corr-pace"></span> and <span data-fill="corr-three"></span>), so the corners are personalities, not rankings.</p>
+        </div>
+        <div class="about-card">
+          <h3>The reflection</h3>
+          <p>A plain scatter felt abstract, so the chart became a court. Color is saved for March: champions and Final Four teams. Nine tournaments is a small sample, so read this as a pattern, not a rule.</p>
+        </div>
+        <div class="about-card">
+          <h3>Method</h3>
+          <ul>
+            <li><span data-fill="team-seasons"></span> team-seasons: D1 teams with 15+ games against D1 opponents.</li>
+            <li>Pace = estimated possessions per game (Dean Oliver). Three-point share = 3PA ÷ FGA.</li>
+            <li><span data-fill="games-dropped"></span> games with impossible possession counts removed. All <span data-fill="ff-count"></span> Final Four teams kept.</li>
+            <li>No tournament in 2019–20. A few extreme teams are drawn at the map's edge.</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>Sources</h3>
+          <ul>
+            <li>NCAA Women's Basketball Data Files 2026 (ESPN), the official Love Data Week 2027 dataset.</li>
+            <li>Built with <code>scripts/01_clean.py</code> and <code>scripts/08_build_team_personality.py</code>.</li>
+            <li>AI use: Claude (Anthropic) helped write analysis and page code. All figures come from the scripts.</li>
+          </ul>
+        </div>
+      </div>
+      <details id="table-details">
+        <summary>Show the map's data as a table</summary>
+        <p class="map-note" id="table-note"></p>
+        <div class="table-wrap"><table id="data-table"></table></div>
+      </details>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="wrap">Built for the Big Ten Academic Alliance Love Data Week 2027 Data Viz Student Championship. University of Maryland.</div>
+</footer>
+
+<script>
+const D = /*__DATA__*/null;
+(() => {
+"use strict";
+if (!D) {
+  const m = document.createElement("div");
+  m.setAttribute("role", "alert");
+  m.style.cssText = "position:fixed;inset:auto 1rem 1rem 1rem;z-index:99;background:#e21833;color:#fff;padding:1rem 1.25rem;border-radius:12px;font-size:1rem";
+  m.textContent = "This is the template, so it has no data. Run scripts/08_build_team_personality.py and open dashboard/team_personality.html.";
+  document.body.append(m);
+  return;
+}
+const P = D.personalities;
+const ROUNDS = D.rounds;
+const FF = ROUNDS.indexOf("Final Four"), FINAL = ROUNDS.indexOf("Final"), CHAMP = ROUNDS.indexOf("Champion");
+const NS = "http://www.w3.org/2000/svg";
+
+const rows = D.rows.map(r => ({
+  season: r[0], id: r[1], conf: r[2], w: r[3], l: r[4],
+  pd: r[5], td: r[6], pace: r[7], three: r[8], quad: r[9], fin: r[10],
+  team: D.teams[r[1]]
+}));
+const byTeam = new Map();
+rows.forEach(r => { if (!byTeam.has(r.id)) byTeam.set(r.id, []); byTeam.get(r.id).push(r); });
+byTeam.forEach(list => list.sort((a, b) => a.season - b.season));
+const champions = rows.filter(r => r.fin === CHAMP).sort((a, b) => a.season - b.season);
+const finalFour = rows.filter(r => r.fin >= FF);
+
+const state = { season: "all", conf: "all", quad: null, team: null };
+
+// ---------- helpers
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, text) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (text != null) n.textContent = text;
+  return n;
+};
+const svgEl = (tag, attrs = {}, text) => {
+  const n = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (text != null) n.textContent = text;
+  return n;
+};
+const seasonLabel = s => `${s - 1}–${String(s).slice(2)}`;
+const shortSeason = s => `’${String(s).slice(2)}`;
+const signed = (v, d = 1) => (v > 0 ? "+" : v < 0 ? "−" : "±") + Math.abs(v).toFixed(d);
+const pct = v => `${Math.round(v * 100)}%`;
+const NO_TOURNEY = 2020;
+const finishLabel = (f, season) => season === NO_TOURNEY ? "Tournament canceled" : f < 0 ? "No NCAA bid" : f === FINAL ? "Runner-up" : ROUNDS[f];
+const finishShort = (f, season) => season === NO_TOURNEY ? "Canceled" : f < 0 ? "" : f === CHAMP ? "Champion" : f === FINAL ? "Runner-up" : f === FF ? "Final Four" : ROUNDS[f];
+const numWord = n => ["zero","one","two","three","four","five","six","seven","eight","nine","ten"][n] ?? String(n);
+const starPath = (cx, cy, r) => {
+  let d = "";
+  for (let i = 0; i < 10; i++) {
+    const rad = i % 2 ? r * 0.45 : r;
+    const a = -Math.PI / 2 + i * Math.PI / 5;
+    d += (i ? "L" : "M") + (cx + rad * Math.cos(a)).toFixed(2) + " " + (cy + rad * Math.sin(a)).toFixed(2);
+  }
+  return d + "Z";
+};
+// 2x2 glyph laid out like the court: top row = more threes, right column = faster
+const glyph = (quad, size = 18) => {
+  const g = el("span", { class: "glyph", "aria-hidden": "true" });
+  const cell = Math.round((size - 2) / 2);
+  g.style.gridTemplateColumns = `${cell}px ${cell}px`;
+  const order = [2, 0, 3, 1]; // TL snipers, TR run, BL bruisers, BR track
+  order.forEach(q => {
+    const i = el("i", q === quad ? { class: "on" } : {});
+    i.style.width = i.style.height = cell + "px";
+    g.append(i);
+  });
+  return g;
+};
+
+// ---------- hero text, tiles
+const st = D.standings;
+const nTitles = champions.length;
+const runIdx = P.findIndex(p => p.key === "run");
+const insideFF = st.filter((s, i) => !P[i].outside).reduce((a, s) => a + s.final_four, 0);
+$("dek").textContent =
+  `Ten seasons of Division I teams, placed on a court by pace and three-point habits. ` +
+  `${numWord(nTitles)[0].toUpperCase() + numWord(nTitles).slice(1)} titles. None for the ${P[runIdx].name}.`;
+
+const tiles = [
+  [rows.length.toLocaleString(), "team-seasons on the map"],
+  [String(D.seasons.length), "seasons, 2016–17 to 2025–26"],
+  [String(P.length), "personalities"],
+  [String(nTitles), "national champions"],
+];
+tiles.forEach(([v, l]) => {
+  const t = el("div", { class: "tile" });
+  t.append(el("div", { class: "v" }, v), el("div", { class: "l" }, l));
+  $("tiles").append(t);
+});
+
+// ---------- fills from the build log
+const fill = (k, v) => document.querySelectorAll(`[data-fill="${k}"]`).forEach(n => n.textContent = v);
+const fmtCorr = v => (v < 0 ? "−" : "") + Math.abs(v).toFixed(2);
+fill("corr-pace", fmtCorr(D.log.corr_pace_net));
+fill("corr-three", fmtCorr(D.log.corr_three_net));
+fill("corr-both", fmtCorr(D.log.corr_pace_three));
+fill("team-seasons", D.log.team_seasons_kept.toLocaleString());
+fill("games-dropped", String(D.log.games_dropped_possessions));
+fill("ff-count", String(D.log.final_four_in_sample));
+
+// ---------- controls
+const strip = $("season-strip");
+const seasonOpts = ["all", ...D.seasons];
+seasonOpts.forEach(s => {
+  const b = el("button", { class: "chip", type: "button", "aria-pressed": String(s === state.season), "data-season": s },
+    s === "all" ? "All seasons" : seasonLabel(s));
+  b.addEventListener("click", () => { state.season = s === "all" ? "all" : Number(s); render(); });
+  strip.append(b);
+});
+const MAJOR = ["Big Ten", "SEC", "ACC", "Big 12", "Big East", "Pac-12"];
+const confStrip = $("conf-strip"), confMore = $("conf-more");
+const confChip = (value, label) => {
+  const b = el("button", { class: "chip conf-chip", type: "button", "aria-pressed": String(state.conf === value), "data-conf": value }, label);
+  b.addEventListener("click", () => { state.conf = state.conf === value && value !== "all" ? "all" : value; render(); });
+  return b;
+};
+confStrip.append(confChip("all", "All"));
+MAJOR.filter(c => D.conferences.includes(c)).forEach(c => confStrip.append(confChip(c, c)));
+const others = D.conferences.filter(c => !MAJOR.includes(c));
+others.forEach(c => confMore.append(confChip(c, c)));
+const moreBtn = el("button", { class: "chip", type: "button", "aria-expanded": "false", "aria-controls": "conf-more" }, `More (${others.length})`);
+moreBtn.addEventListener("click", () => {
+  const open = !confMore.classList.contains("open");
+  confMore.classList.toggle("open", open);
+  moreBtn.setAttribute("aria-expanded", String(open));
+  moreBtn.textContent = open ? "Fewer" : `More (${others.length})`;
+});
+confStrip.append(moreBtn);
+
+const nameToId = new Map();
+[...byTeam.keys()].map(id => [D.teams[id], id]).sort((a, b) => a[0].localeCompare(b[0])).forEach(([n, id]) => {
+  nameToId.set(n.toLowerCase(), id);
+  $("team-list").append(el("option", { value: n }));
+});
+const search = $("team-search");
+const trySearch = () => {
+  const id = nameToId.get(search.value.trim().toLowerCase());
+  if (id != null) { selectTeam(id); }
+};
+search.addEventListener("change", trySearch);
+search.addEventListener("keydown", e => { if (e.key === "Enter") trySearch(); });
+
+// ---------- map geometry (responsive: K scales text and marks on narrow screens)
+const W = 760, H = 600;
+let K = 1, M = { l: 54, r: 18, t: 18, b: 52 }, CW = 0, CH = 0, cx0 = 0, cy0 = 0;
+const LX = D.limits.pace, LY = D.limits.three;
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+const sx = v => M.l + (clamp(v, -LX, LX) + LX) / (2 * LX) * CW;
+const sy = v => M.t + (LY - clamp(v, -LY, LY)) / (2 * LY) * CH;
+const fs = n => `font-size:${(n * K).toFixed(1)}px`;
+
+const map = $("map");
+const layerCourt = svgEl("g"), layerZones = svgEl("g"), layerDots = svgEl("g"),
+      layerMarks = svgEl("g"), layerSel = svgEl("g"), layerHover = svgEl("g");
+map.append(layerCourt, layerZones, layerDots, layerMarks, layerSel, layerHover);
+const zoneEls = [];
+
+function layout() {
+  const w = map.getBoundingClientRect().width || W;
+  // keep tick labels at roughly 10px or more on screen
+  K = Math.min(2.4, Math.max(1, (10 * W) / (11 * w)));
+  M = { l: 30 + 24 * K, r: 18, t: 18, b: 22 + 30 * K };
+  CW = W - M.l - M.r; CH = H - M.t - M.b;
+  cx0 = sx(0); cy0 = sy(0);
+  drawCourt(); drawZones();
+}
+
+function drawCourt() {
+  layerCourt.replaceChildren();
+  layerCourt.append(svgEl("rect", { class: "court-bg", x: M.l, y: M.t, width: CW, height: CH, rx: 14 }));
+  layerCourt.append(svgEl("rect", { class: "court-edge", x: M.l + 6, y: M.t + 6, width: CW - 12, height: CH - 12, rx: 10 }));
+  // lanes and three-point arcs at each end (decoration, recessive)
+  const laneH = CH * 0.30, laneW = CW * 0.16, arcR = CH * 0.40;
+  [[M.l + 6, 1], [M.l + CW - 6, -1]].forEach(([x, dir]) => {
+    layerCourt.append(svgEl("rect", { class: "lane", x: dir > 0 ? x : x - laneW, y: cy0 - laneH / 2, width: laneW, height: laneH }));
+    const sweep = dir > 0 ? 1 : 0;
+    layerCourt.append(svgEl("path", { class: "arc",
+      d: `M${x} ${cy0 - arcR} A ${arcR} ${arcR} 0 0 ${sweep} ${x} ${cy0 + arcR}` }));
+  });
+  layerCourt.append(svgEl("line", { class: "court-mid", x1: cx0, x2: cx0, y1: M.t + 6, y2: M.t + CH - 6 }));
+  layerCourt.append(svgEl("line", { class: "court-mid", x1: M.l + 6, x2: M.l + CW - 6, y1: cy0, y2: cy0 }));
+  layerCourt.append(svgEl("circle", { class: "center-circle", cx: cx0, cy: cy0, r: 38 }));
+  if (K < 1.5) layerCourt.append(svgEl("text", { class: "tick", style: fs(11), x: cx0, y: cy0 + 54, "text-anchor": "middle" }, "average team"));
+
+  for (let v = -LX; v <= LX; v += LX / 2) {
+    layerCourt.append(svgEl("text", { class: "tick", style: fs(11), x: sx(v), y: M.t + CH + 14 * K, "text-anchor": "middle" },
+      v === 0 ? "avg" : signed(v, 0)));
+  }
+  for (let v = -LY; v <= LY; v += LY / 2) {
+    layerCourt.append(svgEl("text", { class: "tick", style: fs(11), x: M.l - 6, y: sy(v) + 4 * K, "text-anchor": "end" },
+      v === 0 ? "avg" : signed(v, 0)));
+  }
+  const compact = K >= 1.5;
+  layerCourt.append(svgEl("text", { class: "axis-title", style: fs(12), x: M.l + CW / 2, y: H - 8, "text-anchor": "middle" },
+    compact ? "← Slower · Pace · Faster →" : "← Slower · Pace: possessions per game vs. season average · Faster →"));
+  layerCourt.append(svgEl("text", { class: "axis-title", style: fs(12), "text-anchor": "middle",
+    transform: `translate(${10 * K} ${M.t + CH / 2}) rotate(-90)` },
+    compact ? "← Fewer threes · More threes →" : "← Fewer threes · 3-point share of shots, points vs. average · More →"));
+}
+
+function drawZones() {
+  layerZones.replaceChildren();
+  const pad = 16 + 4 * K;
+  P.forEach((p, i) => {
+    const right = p.fast, top = p.outside;
+    const x = right ? M.l + CW - pad : M.l + pad;
+    const y = top ? M.t + pad + 12 * K : M.t + CH - pad - 14 * K;
+    const g = svgEl("g");
+    const anchor = right ? "end" : "start";
+    g.append(svgEl("text", { class: "zone-name", style: fs(K > 1 ? 14 : 15), x, y, "text-anchor": anchor }, p.name.toUpperCase()));
+    g.append(svgEl("text", { class: "zone-sub", style: fs(11), x, y: y + 15 * K, "text-anchor": anchor },
+      `${p.fast ? "Fast" : "Slow"} · ${p.outside ? "more threes" : "fewer threes"}`));
+    layerZones.append(g);
+    zoneEls[i] = g;
+  });
+}
+layout();
+let lastK = K;
+window.addEventListener("resize", () => {
+  clearTimeout(window.__rz);
+  window.__rz = setTimeout(() => { layout(); if (K !== lastK) { lastK = K; render(); } else render(); }, 150);
+});
+
+$("legend-star").setAttribute("d", starPath(7, 7.5, 6.5));
+
+// ---------- tooltip
+const tip = $("tooltip");
+const mapCard = map.parentElement;
+function showTip(r) {
+  tip.replaceChildren();
+  const avg = D.seasonAvg[r.season];
+  tip.append(el("b", {}, `${r.team}`), el("div", { style: "color:var(--muted);margin-bottom:.3rem" }, `${seasonLabel(r.season)} · ${r.conf}`));
+  const line = (a, b) => { const d = el("div", { class: "tt-row" }); d.append(el("span", {}, a), el("span", {}, b)); tip.append(d); };
+  line("Personality", P[r.quad].name);
+  line("Record vs. D1", `${r.w}–${r.l}`);
+  line("Pace", `${r.pace} (${signed(r.pd)} vs. ${avg[0]})`);
+  line("3-point share", `${r.three}% (${signed(r.td)} vs. ${avg[1]}%)`);
+  line("NCAA tournament", finishLabel(r.fin, r.season));
+  tip.style.display = "block";
+  const box = mapCard.getBoundingClientRect(), svgBox = map.getBoundingClientRect();
+  const k = svgBox.width / W;
+  let left = svgBox.left - box.left + sx(r.pd) * k + 14;
+  let top = svgBox.top - box.top + sy(r.td) * k - 10;
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  if (left + tw > box.width - 6) left = left - tw - 28;
+  if (left < 6) left = 6;
+  if (top + th > box.height - 6) top = box.height - th - 6;
+  if (top < 6) top = 6;
+  tip.style.left = left + "px"; tip.style.top = top + "px";
+  layerHover.replaceChildren(svgEl("circle", { class: "hover-ring", cx: sx(r.pd), cy: sy(r.td), r: 10 * Math.sqrt(K) }));
+}
+function hideTip() { tip.style.display = "none"; layerHover.replaceChildren(); }
+
+// ---------- filtering
+const inSeason = r => state.season === "all" || r.season === state.season;
+const matches = r => (state.conf === "all" || r.conf === state.conf) && (state.quad == null || r.quad === state.quad);
+let hoverPool = [];
+
+function render() {
+  // controls
+  strip.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", String(String(state.season) === b.dataset.season)));
+  document.querySelectorAll(".conf-chip").forEach(b => b.setAttribute("aria-pressed", String(state.conf === b.dataset.conf)));
+  if (state.conf !== "all" && !MAJOR.includes(state.conf) && !confMore.classList.contains("open")) moreBtn.click();
+  document.querySelectorAll(".persona").forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.quad) === state.quad)));
+  zoneEls.forEach((z, i) => z.classList.toggle("zone-dim", state.quad != null && state.quad !== i));
+
+  const all = state.season === "all";
+  const visible = rows.filter(inSeason);
+  const r0 = (all ? 2.6 : 4.2) * Math.sqrt(K);
+  layerDots.replaceChildren(); layerMarks.replaceChildren(); layerSel.replaceChildren();
+  hoverPool = [];
+
+  const frag = document.createDocumentFragment();
+  const filtering = state.conf !== "all" || state.quad != null;
+  // draw faded teams first so the filtered ones sit on top
+  const ordered = filtering ? [...visible].sort((a, b) => matches(a) - matches(b)) : visible;
+  ordered.forEach(r => {
+    if (r.fin >= FF) return;
+    const on = matches(r);
+    const cls = filtering && on ? "dot on" : "dot";
+    const op = !on ? 0.05 : filtering ? 0.9 : (all ? 0.42 : 0.7);
+    frag.append(svgEl("circle", { class: cls, cx: sx(r.pd).toFixed(1), cy: sy(r.td).toFixed(1),
+      r: filtering && on ? r0 * 1.35 : r0, opacity: op }));
+    if (on) hoverPool.push(r);
+  });
+  layerDots.append(frag);
+
+  // Final Four, then champions on top
+  const marks = visible.filter(r => r.fin >= FF).sort((a, b) => a.fin - b.fin);
+  marks.forEach(r => {
+    const on = matches(r);
+    const x = sx(r.pd), y = sy(r.td);
+    const label = `${r.team}, ${seasonLabel(r.season)}: ${finishLabel(r.fin)}. ${P[r.quad].name}, pace ${signed(r.pd)} possessions and ${signed(r.td)} points of three-point share versus average.`;
+    const attrs = { tabindex: on ? 0 : -1, role: "button", "aria-label": label, opacity: on ? 1 : 0.12 };
+    const m = r.fin === CHAMP
+      ? svgEl("path", { ...attrs, class: "mark-champ focusable", d: starPath(x, y, (all ? 10 : 12) * Math.sqrt(K)) })
+      : svgEl("circle", { ...attrs, class: "mark-ff focusable", cx: x, cy: y, r: (all ? 5.5 : 7) * Math.sqrt(K) });
+    m.addEventListener("focus", () => showTip(r));
+    m.addEventListener("blur", hideTip);
+    m.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectTeam(r.id); } });
+    layerMarks.append(m);
+    if (on) hoverPool.push(r);
+  });
+
+  // selected team path (all seasons, regardless of filters)
+  if (state.team != null) {
+    const list = byTeam.get(state.team);
+    const pts = list.map(r => `${sx(r.pd).toFixed(1)},${sy(r.td).toFixed(1)}`).join(" ");
+    layerSel.append(svgEl("polyline", { class: "path-sel", points: pts, opacity: 0.85 }));
+    list.forEach((r, i) => {
+      const cur = !all && r.season === state.season;
+      const x = sx(r.pd), y = sy(r.td);
+      if (r.fin === CHAMP) layerSel.append(svgEl("path", { class: "mark-sel", d: starPath(x, y, (cur ? 12 : 9) * Math.sqrt(K)) }));
+      else layerSel.append(svgEl("circle", { class: "mark-sel", cx: x, cy: y, r: (cur ? 7.5 : 5) * Math.sqrt(K) }));
+      if (i === 0 || i === list.length - 1 || cur) {
+        layerSel.append(svgEl("text", { class: "sel-label", style: fs(11), x: x + 9 * K, y: y - 8 * K }, shortSeason(r.season)));
+      }
+      if (!hoverPool.includes(r)) hoverPool.push(r);
+    });
+  }
+
+  // description and note
+  const shown = visible.filter(matches);
+  const ffShown = shown.filter(r => r.fin >= FF).length;
+  const chShown = shown.filter(r => r.fin === CHAMP).length;
+  const scope = `${all ? "All seasons" : seasonLabel(state.season)}${state.conf !== "all" ? ", " + state.conf : ""}${state.quad != null ? ", " + P[state.quad].name : ""}`;
+  $("map-note").textContent = `${scope}: ${shown.length.toLocaleString()} team-season${shown.length === 1 ? "" : "s"}, ${ffShown} Final Four ${ffShown === 1 ? "team" : "teams"}, ${chShown} ${chShown === 1 ? "champion" : "champions"}. Hover, tap or tab to a highlighted team for details.`;
+  const quadCounts = P.map((p, i) => `${p.name} ${shown.filter(r => r.quad === i).length}`).join(", ");
+  $("map-desc").textContent = `Scatter plot drawn as a basketball court. ${scope}. Horizontal position is pace and vertical position is three-point share, both compared with the season average. Team-seasons per personality: ${quadCounts}. Champions shown: ${shown.filter(r => r.fin === CHAMP).map(r => `${r.team} ${seasonLabel(r.season)} (${P[r.quad].name})`).join("; ") || "none"}. A table version is in the How it was made section.`;
+
+  renderPanel();
+  renderTable(shown);
+}
+
+// pointer hover: nearest visible point
+function svgPoint(evt) {
+  const pt = map.createSVGPoint(); pt.x = evt.clientX; pt.y = evt.clientY;
+  return pt.matrixTransform(map.getScreenCTM().inverse());
+}
+function nearest(evt) {
+  const p = svgPoint(evt);
+  let best = null, bd = (14 * K) ** 2;
+  for (const r of hoverPool) {
+    const dx = sx(r.pd) - p.x, dy = sy(r.td) - p.y, d = dx * dx + dy * dy;
+    const bias = r.fin >= FF || r.id === state.team ? 0.6 : 1;
+    if (d * bias < bd) { bd = d * bias; best = r; }
+  }
+  return best;
+}
+map.addEventListener("pointermove", e => { const r = nearest(e); r ? showTip(r) : hideTip(); map.style.cursor = r ? "pointer" : "default"; });
+map.addEventListener("pointerleave", hideTip);
+map.addEventListener("click", e => { const r = nearest(e); if (r) selectTeam(r.id); });
+
+// ---------- scouting report
+function selectTeam(id) {
+  state.team = id;
+  search.value = D.teams[id];
+  render();
+  $("panel").scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+function renderPanel() {
+  const panel = $("panel");
+  panel.replaceChildren();
+  if (state.team == null) {
+    panel.append(el("p", { class: "eyebrow" }, "Scouting report"), el("h3", {}, "Pick a team"));
+    panel.append(el("p", {}, "Click a dot or try one of these."));
+    const q = el("div", { class: "quick" });
+    ["Maryland", "UCLA", "Iowa", "South Carolina", "UConn", "LSU"].forEach(n => {
+      const id = nameToId.get(n.toLowerCase());
+      if (id == null) return;
+      const b = el("button", { class: "chip", type: "button" }, n);
+      b.addEventListener("click", () => selectTeam(id));
+      q.append(b);
+    });
+    panel.append(q);
+    return;
+  }
+  const list = byTeam.get(state.team);
+  const close = el("button", { class: "close", type: "button" }, "Clear");
+  close.addEventListener("click", () => { state.team = null; search.value = ""; render(); });
+  panel.append(close, el("p", { class: "eyebrow" }, "Scouting report"), el("h3", {}, D.teams[state.team]));
+  const counts = P.map((_, i) => list.filter(r => r.quad === i).length);
+  const top = counts.indexOf(Math.max(...counts));
+  const id = el("div", { class: "identity" });
+  const txt = el("div");
+  txt.append(el("strong", {}, P[top].name), el("span", {}, `Main personality: ${counts[top]} of ${list.length} seasons`));
+  id.append(glyph(top, 30), txt);
+  panel.append(id);
+  const nPers = counts.filter(c => c > 0).length;
+  const titles = list.filter(r => r.fin === CHAMP).length, ffs = list.filter(r => r.fin >= FF).length;
+  let summary = nPers === 1 ? "Same personality every season on the map." : `Played as ${nPers} different personalities.`;
+  if (ffs) summary += ` ${ffs} Final Four ${ffs === 1 ? "trip" : "trips"}${titles ? `, ${titles} ${titles === 1 ? "title" : "titles"}` : ""}.`;
+  panel.append(el("p", {}, summary));
+  const ul = el("ul", { class: "season-list", "aria-label": "Seasons" });
+  [...list].reverse().forEach(r => {
+    const li = el("li", state.season === r.season ? { class: "current" } : {});
+    li.append(el("span", { class: "s" }, seasonLabel(r.season)), glyph(r.quad, 16),
+      el("span", {}, `${P[r.quad].name} · ${r.w}–${r.l}`), el("span", { class: "fin" }, finishShort(r.fin, r.season)));
+    ul.append(li);
+  });
+  panel.append(ul);
+}
+
+// ---------- personality cards
+P.forEach((p, i) => {
+  const s = st[i];
+  const b = el("button", { class: "persona", type: "button", "aria-pressed": "false", "data-quad": i });
+  const top = el("div", { class: "top" });
+  const nm = el("div");
+  nm.append(el("div", { class: "name" }, p.name), el("div", { class: "where" }, `${p.fast ? "Fast" : "Slow"} pace · ${p.outside ? "more" : "fewer"} threes`));
+  top.append(glyph(i, 30), nm);
+  const stats = el("div", { class: "stats" });
+  const stat = (v, l) => { const sp = el("span"); sp.append(el("b", {}, v), document.createTextNode(" " + l)); stats.append(sp); };
+  stat(String(s.titles), s.titles === 1 ? "title" : "titles");
+  stat(String(s.final_four), "Final Four spots");
+  stat(pct(s.share_all), "of teams");
+  b.append(top, el("p", {}, p.blurb), stats);
+  b.addEventListener("click", () => {
+    state.quad = state.quad === i ? null : i;
+    render();
+    if (state.quad != null) $("map-section").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
+  $("persona-grid").append(b);
+});
+
+// ---------- standings chart
+(function drawStandings() {
+  const svg = $("standings");
+  const order = P.map((p, i) => i).sort((a, b) => st[b].titles - st[a].titles || st[b].final_four - st[a].final_four);
+  const left = 170, right = 130, top = 22, rowH = 72, barH = 18, gap = 4;
+  const Wd = 760, Hd = top + order.length * rowH + 10;
+  svg.setAttribute("viewBox", `0 0 ${Wd} ${Hd}`);
+  const maxV = Math.ceil(Math.max(...st.map(s => Math.max(s.share_all, s.share_ff))) * 10) / 10;
+  const bx = v => left + v / maxV * (Wd - left - right);
+  for (let v = 0; v <= maxV + 1e-9; v += 0.1) {
+    svg.append(svgEl("line", { class: v === 0 ? "base" : "grid", x1: bx(v), x2: bx(v), y1: top - 6, y2: Hd - 10 }));
+    svg.append(svgEl("text", { class: "tick", x: bx(v), y: top - 10, "text-anchor": "middle" }, `${Math.round(v * 100)}%`));
+  }
+  const bar = (x0, y, w, cls) => {
+    const r = Math.min(4, w);
+    const d = w <= 0 ? "" : `M${x0} ${y}H${x0 + w - r}Q${x0 + w} ${y} ${x0 + w} ${y + r}V${y + barH - r}Q${x0 + w} ${y + barH} ${x0 + w - r} ${y + barH}H${x0}Z`;
+    return svgEl("path", { d, fill: cls });
+  };
+  order.forEach((i, k) => {
+    const s = st[i], y = top + k * rowH + 8;
+    svg.append(svgEl("text", { class: "row-name", x: 0, y: y + 14 }, P[i].name));
+    svg.append(svgEl("text", { class: "row-sub", x: 0, y: y + 32 },
+      `${s.titles} ${s.titles === 1 ? "title" : "titles"} · ${s.finals} in the final`));
+    svg.append(bar(bx(0), y, bx(s.share_all) - bx(0), "var(--bar-all)"));
+    svg.append(svgEl("text", { class: "val", x: bx(s.share_all) + 6, y: y + 13 }, pct(s.share_all)));
+    svg.append(bar(bx(0), y + barH + gap, bx(s.share_ff) - bx(0), "var(--bar-ff)"));
+    svg.append(svgEl("text", { class: "val", x: bx(s.share_ff) + 6, y: y + barH + gap + 13 },
+      `${pct(s.share_ff)} (${s.final_four} of ${finalFour.length})`));
+  });
+  const ffTotal = finalFour.length;
+  $("standings-desc").textContent = "Bar chart. " + order.map(i =>
+    `${P[i].name}: ${pct(st[i].share_all)} of all team-seasons, ${pct(st[i].share_ff)} of Final Four spots (${st[i].final_four} of ${ffTotal}), ${st[i].titles} titles.`).join(" ");
+  const best = order[0];
+  fill("standings-title", `${P[best].name} punch above their weight in March`);
+  $("standings-lede").textContent =
+    `${pct(st[best].share_all)} of teams, ${pct(st[best].share_ff)} of Final Four spots. Attackers, fast or slow, filled ${insideFF} of ${ffTotal}. (${nTitles} tournaments: a pattern, not proof.)`;
+})();
+
+// ---------- hot takes
+(function drawFacts() {
+  const grid = $("fact-grid");
+  const card = (big, title, body, teamId) => {
+    const c = el("article", { class: "fact" });
+    c.append(el("div", { class: "big" }, big), el("h3", {}, title), el("p", {}, body));
+    if (teamId != null) {
+      const b = el("button", { class: "chip", type: "button" }, `Show ${D.teams[teamId]} on the map`);
+      b.addEventListener("click", () => { state.season = "all"; selectTeam(teamId); $("map-section").scrollIntoView(); });
+      c.append(b);
+    }
+    grid.append(c);
+  };
+  // 1. Fast Shooters near misses
+  const runFinals = rows.filter(r => r.quad === runIdx && r.fin >= FINAL).sort((a, b) => a.season - b.season);
+  const runTitles = runFinals.filter(r => r.fin === CHAMP).length;
+  const byName = new Map();
+  runFinals.forEach(r => byName.set(r.team, [...(byName.get(r.team) || []), seasonLabel(r.season)]));
+  const finText = [...byName].map(([t, ss]) => `${t} (${ss.join(", ")})`).join(" and ");
+  const lostAll = runFinals.every(r => r.fin === FINAL);
+  card(`${runTitles} for ${nTitles}`, `The ${P[runIdx].name} drought`,
+    (runFinals.length ? `${finText} reached the final${lostAll ? (runFinals.length > 1 ? " and lost both times" : " and lost") : ""}.` : `No ${P[runIdx].name} titles.`),
+    runFinals.length ? runFinals[runFinals.length - 1].id : null);
+
+  // 2. Maryland identity
+  const mdId = nameToId.get("maryland");
+  if (mdId != null) {
+    const list = byTeam.get(mdId);
+    const counts = P.map((_, i) => list.filter(r => r.quad === i).length);
+    const top = counts.indexOf(Math.max(...counts));
+    const full = [...byTeam.values()].filter(l => l.length === D.seasons.length);
+    const steady = full.filter(l => new Set(l.map(r => r.quad)).size === 1).length;
+    card(`${counts[top]} of ${list.length}`, `Maryland knows who it is`,
+      `${P[top].name} in ${counts[top] === list.length ? "every season" : counts[top] + " of " + list.length + " seasons"}. Only ${steady} of ${full.length} ten-season programs never changed.`, mdId);
+  }
+
+  // 3. latest champion
+  const last = champions[champions.length - 1];
+  const lastConfChamps = champions.filter(r => r.conf === last.conf).length;
+  card(`${shortSeason(last.season)}`, `${last.team} won it as ${P[last.quad].name}`,
+    `${last.pd < 0 ? "Slower" : "Faster"} than average, ${last.td < 0 ? "fewer" : "more"} threes. The ${last.conf}'s ${lastConfChamps === 1 ? "only" : lastConfChamps} title in this span.`, last.id);
+})();
+
+// ---------- table
+function renderTable(shown) {
+  const t = $("data-table");
+  t.replaceChildren();
+  const head = el("tr");
+  [["Season"], ["Team"], ["Conference"], ["Record", "num"], ["Pace", "num"], ["vs. avg", "num"], ["3-pt share", "num"], ["vs. avg", "num"], ["Personality"], ["NCAA finish"]]
+    .forEach(([h, c]) => head.append(el("th", c ? { class: c, scope: "col" } : { scope: "col" }, h)));
+  const thead = el("thead"); thead.append(head); t.append(thead);
+  const tb = el("tbody");
+  const sorted = [...shown].sort((a, b) => b.season - a.season || b.fin - a.fin || a.team.localeCompare(b.team));
+  sorted.forEach(r => {
+    const tr = el("tr");
+    [[seasonLabel(r.season)], [r.team], [r.conf], [`${r.w}–${r.l}`, "num"], [r.pace.toFixed(1), "num"], [signed(r.pd), "num"],
+     [`${r.three.toFixed(1)}%`, "num"], [signed(r.td), "num"], [P[r.quad].name], [finishLabel(r.fin, r.season)]]
+      .forEach(([v, c]) => tr.append(el("td", c ? { class: c } : {}, v)));
+    tb.append(tr);
+  });
+  t.append(tb);
+  $("table-note").textContent = `${sorted.length.toLocaleString()} rows, matching the map's current filters.`;
+}
+
+// ---------- theme toggle
+const themeBtn = $("theme-btn");
+const isDark = () => document.documentElement.dataset.theme === "dark";
+const syncThemeLabel = () => themeBtn.setAttribute("aria-label", isDark() ? "Switch to light theme" : "Switch to dark theme");
+themeBtn.addEventListener("click", () => { document.documentElement.dataset.theme = isDark() ? "light" : "dark"; syncThemeLabel(); });
+syncThemeLabel();
+
+render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Competition data: not redistributable, and the rules ask that downloads be disabled.
+# Rebuild data/clean/ with scripts/01_clean.py from the official files.
+NCAA Women's Basketball Data Files 2026/
+data/
+
+# Earlier prototypes, kept locally but not published
+dashboard/*
+!dashboard/team_personality.html
+scripts/0[2-7]_*.py
+tests/test_rally_index.py
+tests/test_comeback_behavior.py
+notebooks/
+
+# Personal notes and files
+CLAUDE.md
+helper.txt
+improvements.txt
+Rishi_CV*.pdf
+*.docx
+Entry Level Data Analyst Resume.pdf
