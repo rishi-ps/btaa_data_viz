@@ -4,7 +4,9 @@
 
 An interactive data story built with Python (DuckDB, pandas) and plain JavaScript and SVG, on 10 seasons of official ESPN game data. Made for the Big Ten Academic Alliance Data Viz Student Championship (Love Data Week 2027), University of Maryland.
 
-Open [`dashboard/team_personality.html`](dashboard/team_personality.html) in a browser. It is a single self-contained page with no server and no external data files.
+**[View the live dashboard](https://rishi-ps.github.io/dashboards/team-personality.html)**
+
+To run it locally, download [`dashboard/team_personality.html`](dashboard/team_personality.html) and open it in any browser. It is a single self-contained file with no server and no external data.
 
 ## The short version
 
